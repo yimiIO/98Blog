@@ -2,11 +2,15 @@ package zpy.servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 
@@ -16,14 +20,13 @@ import zpy.model.Comment;
 import zpy.util.DbHelper;
 
 public class HomeServlet extends HttpServlet {
-	private static final long serialVersionUID = -7152478870507997462L;
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		String method = request.getParameter("method");
 
-		if (method == null) {			
+		if (method == null) {
 			main(request, response);
 			request.getRequestDispatcher("/main.jsp")
 					.forward(request, response);
@@ -67,18 +70,19 @@ public class HomeServlet extends HttpServlet {
 
 	public void main(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String cid=request.getParameter("cid");
-		String sql=null;
-		if(cid==null){
+		String cid = request.getParameter("cid");
+		String sql = null;
+		if (cid == null) {
 			sql = "select b.id as id,title,content,createdtime,name as category,c.id as categoryid  from blog b,category c where  category_id=c.id order by b.id desc  limit 0,4";
-		}else{
-			sql = "select b.id as id,title,content,createdtime,name as category,c.id as categoryid  from blog b,category c where  category_id=c.id and category_id="+cid+" order by b.id desc  limit 0,4";
+		} else {
+			sql = "select b.id as id,title,content,createdtime,name as category,c.id as categoryid  from blog b,category c where  category_id=c.id and category_id="
+					+ cid + " order by b.id desc  limit 0,4";
 		}
-		
+
 		// DButils中核心类，生成对象时传递数据源对象
 		QueryRunner qr = DbHelper.getQueryRunner();
 
-		// 查询最新博文		 
+		// 查询最新博文
 		List blogs = null;
 		try {
 			blogs = (List) qr.query(sql, new BeanListHandler(Blog.class));
@@ -86,14 +90,47 @@ public class HomeServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		// 查询分类
-		sql = "select id,name from category order by level desc,id desc";
+		sql = "select * from category order by level desc,id desc";
 		List categorys = null;
+		ArrayList<Category> p_cate = new ArrayList<Category>();
+		Category[][] c_array = new Category[40][20];
+		int index = 0;
+
+		HashMap<Integer, Integer> count_map = new HashMap<Integer, Integer>();// mark
+																				// the
+																				// chird
+																				// menu
+																				// in
+																				// c_array[][]
+
 		try {
 			categorys = (List) qr.query(sql,
 					new BeanListHandler(Category.class));
+			for (int i = 0; i < categorys.size(); i++) {
+				Category cate = (Category) categorys.get(i);
+				int level = cate.getLevel();
+
+				if (level < 100) {
+
+					p_cate.add(cate);
+				} else {
+					int a_count;
+					if (count_map.get(cate.getLevel() / 100) != null) {
+						a_count = count_map.get(cate.getLevel() / 100);
+						count_map.put(cate.getLevel() / 100, a_count+1);
+					}else{
+						a_count = 0;
+						count_map.put(cate.getLevel() / 100,1);
+					}
+					c_array[cate.getLevel() / 100][a_count] = cate;
+				}
+			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+
+		
 		// 查询最新的评论
 		sql = "select id,username,content,blog_id as blogid from comment order by id desc limit 0,4";
 		List comments = null;
@@ -107,6 +144,8 @@ public class HomeServlet extends HttpServlet {
 		request.setAttribute("blogs", blogs);
 		// 读取首页需要显示的分类信息
 		request.setAttribute("categorys", categorys);
+		request.setAttribute("p_cate", p_cate);
+		request.setAttribute("c_cate", c_array);
 		// 读取首页需要显示的评论
 		request.setAttribute("comments", comments);
 	}

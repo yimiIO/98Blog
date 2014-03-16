@@ -6,6 +6,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script src="<%=request.getContextPath()%>/aha/js/menu.js"></script>
+
 <title>做很酷的事情，改变世界</title>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/style.css" />
 </head>
@@ -104,18 +106,67 @@
 <div id="right">
 <div class="sidebar">
         <ul>
-    	<li>做很酷的事情，改变世界 -zpy</li>
+    	<li>做很酷的事情y</li>
       </ul>
  
    <h2>分类</h2>
-   <ul>		
-	<li><a href="<%=request.getContextPath() %>">全部</a></li>	
-	<% List categorys=(List)request.getAttribute("categorys"); 
-	   for(int i=0;i<categorys.size();i++){	
-		Category category=(Category)categorys.get(i);
-	%>
-	    <li><a href="<%=request.getContextPath()%>/servlet/HomeServlet?cid=<%=category.getId()%>"><%=category.getName()%></a></li>        
-     <%} %>  
+   	<ul>
+
+
+
+					<%
+						List p_cate = (List) request.getAttribute("p_cate");
+						for (int i = 0; i < p_cate.size(); i++) {
+							Category cate = (Category) p_cate.get(i);
+					%>
+					<li><a href="#Menu=ChildMenu<%=i%>"
+						onclick="DoMenu('ChildMenu<%=i%>')"><%=cate.getName()%></a>
+
+
+
+						<ul id="ChildMenu<%=i%>" class="collapsed">
+
+							<%
+								Category[][] c_cate = (Category[][]) request
+											.getAttribute("c_cate");
+
+									if (c_cate[cate.getLevel()][0] == null) {
+							%>
+						</ul></li>
+					<%
+						continue;
+							}
+							Category cate2 = new Category();
+							for (int j = 0; j < 20; j++) {
+								System.out.println(cate.getLevel());
+								if (c_cate[cate.getLevel()][j] == null) {
+									break;
+								} else {
+									cate2 = c_cate[cate.getLevel()][j];
+					%>
+					<li><a
+						href="<%=request.getContextPath()%>/servlet/HomeServlet?cid=<%=cate2.getId()%>"><%=cate2.getName()%></a>
+					</li>
+					<%
+						}
+							}
+					%>
+
+
+				</ul>
+				</li>
+
+				<%
+					}
+				%>
+
+
+
+
+
+
+
+				<ul>
    </ul>
 
   		    <h2>最近的主题</h2>

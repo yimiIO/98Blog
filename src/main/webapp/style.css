@@ -1,8 +1,7 @@
 body {
 	margin: 0px 0px 20px 0px;
 		background-color: #FFFFFF;
-	
-        	text-align: center;
+        text-align: center;
         
 	}
 a {
@@ -34,12 +33,12 @@ h1, h2, h3 {
 	}
 
 #container {
-	line-height: 140%;
+	line-height: 180%;
 	margin-right: auto;
 	margin-left: auto;
 	text-align: left;
 	padding: 0px;
-	width: 1000px;
+	width: 90%;
 	
 	background-color: #FFFFFF;
 	border: 1px solid #FFFFFF;
@@ -78,14 +77,14 @@ a#banner-img {
 
 #center {
 	float: left;
-	width: 780px;	
+	width: 80%;	
 	overflow: hidden;
 	}
 
 .content {
 	padding: 15px 15px 5px 15px;
 	background-color: #FFFFFF;
-	width:750px;
+	width:900px;
 	color: #666666;
 	font-family: 'Trebuchet MS', Verdana, sans-serif;
 	font-s;ize: small;
@@ -95,7 +94,7 @@ a#banner-img {
 		float: left;
 	
 	
-	width: 200px;
+	width: 230px;
 	background-color: #FFFFFF;
 	
 	overflow: hidden;
@@ -214,10 +213,10 @@ a#banner-img {
 	}
 
 .sidebar h2 {
-	color: #B22222;
+	color: #299999;
 	font-family: Verdana, Arial, sans-serif;
 	font-size: small;
-	border-bottom: 1px solid #B22222;
+	border-bottom: 1px solid #299999;
 	text-align: left;
 	font-weight: bold;
 	
@@ -232,6 +231,10 @@ a#banner-img {
 	margin-bottom: 30px;
 	}
 
+.sidebar ul.collapsed {
+ display: none;
+}
+
 .sidebar li {
 	color: #666666;
 	font-family: Verdana, Arial, sans-serif;
@@ -245,9 +248,43 @@ a#banner-img {
 	list-style-type: none;
 	}
 
+
 .sidebar img {
 	border: 3px solid #FFFFFF;
 	}
+
+
+
+
+
+.sidebar li ul {
+ list-style:none;
+ text-align:left;
+}
+.sidebar li ul li{ 
+
+}
+.sidebar li ul a{
+         padding-left:30px;
+         width:160px;
+ /* padding-left二级目录中文字向右移动，但Width必须重新设置=(总宽度-padding-left)*/
+}
+/*下面是二级目录的链接样式*/
+.sidebar li ul a:link  {
+ color:#666666; text-decoration:none;
+}
+.sidebar li ul a:visited  {
+ color:#666666;text-decoration:none;
+}
+.sidebar li ul a:hover {
+ color:#B22222;
+ text-decoration:none;
+ font-weight:normal;
+
+ /* 二级onmouseover的字体颜色、背景色*/
+}
+
+
 
 .photo {
 	text-align: left;
@@ -284,3 +321,6 @@ a#banner-img {
 textarea[id="comment-text"] {
 	width: 80%;
 	}
+	
+	
+	
