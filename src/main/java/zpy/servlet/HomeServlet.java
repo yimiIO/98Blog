@@ -73,10 +73,10 @@ public class HomeServlet extends HttpServlet {
 		String cid = request.getParameter("cid");
 		String sql = null;
 		if (cid == null) {
-			sql = "select b.id as id,title,content,createdtime,name as category,c.id as categoryid  from blog b,category c where  category_id=c.id order by b.id desc  limit 0,4";
+			sql = "select b.id as id,title,content,createdtime,name as category,c.id as categoryid  from blog b,category c where  category_id=c.id order by b.id desc  limit 0,10";
 		} else {
 			sql = "select b.id as id,title,content,createdtime,name as category,c.id as categoryid  from blog b,category c where  category_id=c.id and category_id="
-					+ cid + " order by b.id desc  limit 0,4";
+					+ cid + " order by b.id desc  limit 0,10";
 		}
 
 		// DButils中核心类，生成对象时传递数据源对象

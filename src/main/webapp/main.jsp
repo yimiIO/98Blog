@@ -7,11 +7,11 @@
 <head>
 <script src="<%=request.getContextPath()%>/aha/js/menu.js"></script>
 <script src="<%=request.getContextPath()%>/aha/js/closeHTML.js"></script>
+<meta name="baidu-site-verification" content="BEP77teu3W"/>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>做很酷的事情</title>
 <link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath()%>/style.css" />
-
 
 
 
@@ -139,7 +139,6 @@
 							}
 							Category cate2 = new Category();
 							for (int j = 0; j < 20; j++) {
-								System.out.println(cate.getLevel());
 								if (c_cate[cate.getLevel()][j] == null) {
 									break;
 								} else {
