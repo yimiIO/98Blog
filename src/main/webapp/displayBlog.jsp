@@ -55,7 +55,7 @@
         <td><%=comment.getUsername()%>的评论</td>
         </tr>
       <tr>
-        <td ><%=comment.getContent()%></td>
+        <td ><xmp><%=comment.getContent()%></xmp></td>
         </tr>
       <tr>
         <td><%=comment.getCreatedTime()%></td>
