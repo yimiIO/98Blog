@@ -10,6 +10,7 @@ public class Blog {
 	private String category;
 	private int categoryId;
 		
+//kkk
 	public int getId() {
 		return id;
 	}
