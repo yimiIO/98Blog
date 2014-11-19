@@ -11,6 +11,14 @@ public class Blog {
 	private int categoryId;
 		
 //kkk
+//1
+//2
+//3
+//4
+//5
+/**
+aaaaaaaa
+**/
 	public int getId() {
 		return id;
 	}
